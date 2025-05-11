@@ -47,25 +47,6 @@ public class AuthController {
         return "Invalid username or password.";
     }
 
-    @GetMapping("/oauth-success")
-    public String oauthSuccess(Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "Authentication failed or not available!";
-        }
-
-        OAuth2User user = (OAuth2User) authentication.getPrincipal();
-        String email = user.getAttribute("email");
-
-        Customer existing = customerRepo.findByUsername(email);
-        if (existing == null) {
-            Customer customer = new Customer();
-            customer.setUsername(email);
-            customer.setName(user.getAttribute("name"));
-            customerRepo.save(customer);
-        }
-
-        return "OAuth login success for: " + email;
-    }
 
 }
 
