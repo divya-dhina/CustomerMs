@@ -14,8 +14,6 @@ WORKDIR /app
 # Copy the fat jar from the build stage
 COPY --from=build /build/target/customer-ms-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the port your service listens on
 EXPOSE 8092
 
-# Launch the service
 ENTRYPOINT ["java","-jar","app.jar"]
