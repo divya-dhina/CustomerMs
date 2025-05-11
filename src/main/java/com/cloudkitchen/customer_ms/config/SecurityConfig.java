@@ -14,24 +14,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors().and()
                 .csrf().disable()
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/oauth2/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth -> oauth
-                        .defaultSuccessUrl("/auth/oauth-success", true)
-                )
-                .formLogin().disable();
-
+                .authorizeHttpRequests()
+                .anyRequest().permitAll(); // Allow all endpoints without authentication
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
